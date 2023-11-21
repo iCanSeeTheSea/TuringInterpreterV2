@@ -4,21 +4,21 @@ using namespace std;
 
 class Machine
 {
-private:
+public:
     // "dynamic state" made up of state and operand
     string state;
     string operand;
     string* head;
-public:
+
     Machine(string *tape) {
         state = "bgn";
         operand = "000";
         head = tape;
     }
 
-    void updateState(string newState, string newOperand, string direction) {
+    void updateState(string newState, string direction, string newOperand = "") {
         state = newState;
-        operand = newOperand;
+
         if (direction == "<")
         {
             head--;
@@ -31,24 +31,26 @@ public:
         {
             // this might need some more thought
         }
-    }
 
-    string* getHead()
-    {
-        return head;
+        if (newOperand != "")
+        {
+            operand = newOperand;
+        }
     }
 };
+
 
 string test()
 {
     return "hello world!!";
 }
 
-// 
+// function pointer testing
 string (*stateTransition())()
 {
     return test;
 }
+
 
 void outputTape(string* cell, string* head) 
 {
@@ -132,6 +134,6 @@ int main()
     }
    
     Machine machine(&tape[3]);
-    outputTape(tape, machine.getHead());
+    outputTape(tape, machine.head);
 }
 
